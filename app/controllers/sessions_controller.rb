@@ -3,12 +3,17 @@ class SessionsController < ApplicationController
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
+
   end
+
 
   def create
     if (user = User.find_by(name: params[:name]))&.authenticate(params[:password])
       start_new_session_for user
-      redirect_to after_authentication_url
+    if  params[:remember_me] == "1"
+        cookies.permanent.encrypted[:user_id] = user.id
+    end
+      redirect_to books_path
     else
       redirect_to new_session_path, alert: "Try another email address or password."
     end
@@ -19,3 +24,9 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
   end
 end
+
+ def find_user_from_cookie
+    if user_id=cookies.encrypted[:user_id]
+      User.find_by(id: user_id)
+    end
+   end

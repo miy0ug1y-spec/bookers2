@@ -1,14 +1,25 @@
 <%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
 <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
 
-<h1>Log in</h1>
+<h2>Log in</h2>
 
 <%= form_with url: session_path do |form| %>
+<div class="field">
+  <label for="user_name">Name</label><br>
   <%= form.text_field :name, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your name", value: params[:name] %><br>
+</div>
+<div class="field">
+  <label for="user_password">Password</label><br>
   <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
+</div>
+<div class="field">
+  <%= form.check_box :remember_me %>
+  <label for="remember_me">Remember me</label><br>
+</div>
+<div class="actions">
   <%= form.submit "Log in" %>
+</div> 
 <% end %>
-<br>
 
 <%= link_to "Sign up", new_user_path %><br>
 <%= link_to "Forgot your password?", new_password_path %>
