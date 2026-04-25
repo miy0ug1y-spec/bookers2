@@ -28,33 +28,61 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand" href="/bookers2">
-           <span>Bookers</span>
-          </a>
+          <%= link_to "Bookers", root_path, class:"navbar-brand" %>
+
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navberNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-           <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavdropdown">
-            <ul class="navbar-nav ml-auto">
-          </div>
-          <%if authenticated? %>
-              <li>
-                <i class="fa-solid fa-house"></i>
-                <%= link_to "Home", root_path %>
-                
-              <%= link_to "Users", books_path %>
-              <%= link_to "Books",  books_path %>
-              <%= link_to "Log out", session_path, data: { turbo_method: :delete } %>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+          
+            <% if current_user.present? %>
+              <li class="nav-item">
+                <%= link_to root_path, class:"nav-link" do %>
+                <i class="fa-solid fa-house"></i> Home 
+                <% end %>
+              </li>
+              <li class="nav-item">
+              <%= link_to books_path, class: "nav-link" do %>
+              <i class="fa-solid fa-users"></i> Users
+              <% end %>
+              </li>
+              <li class="nav-item">
+              <%= link_to books_path, class: "nav-link" do %>
+              <i class="fa-solid fa-book-open"></i> Books
+              <% end %>
+              </li>
+              <li class="nav-item">
+              <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class:"nav-link" do %>
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+              <% end %>
+              </li>
             </li>  
           <% else %>
-            <li>
-              <%= link_to "Home", root_path %>
-              <%= link_to "About", about_path %>
-              <%= link_to "Sign up", new_user_path %>
-              <%= link_to "Log in", new_session_path %>
+            <li class="nav-item">
+              <%= link_to root_path, class:"nav-link" do %>
+                <i class="fa-solid fa-house"></i> Home 
+              <% end %>
+            </li>
+            <li class="nav-item"> 
+              <%= link_to about_path, class:"nav-link" do %>
+               <i class="fa-solid fa-link"></i> About
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_path, class:"nav-link" do %>
+               <i class="fa-solid fa-user-plus"></i> Sign up
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_session_path, class:"nav-link" do %>
+              <i class="fa-solid fa-arrow-right-to-bracket"></i>Log in
+              <% end %>              
             </li>
           <% end %>
           </ul>
+         </div>
         </div>
       </nav>
     </header>
@@ -63,8 +91,14 @@
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </main>
-    <footer>
-      <p>CopyRight Infratop.inc</p>
+    <footer> 
+      <div class="container mt-5">
+        <div class="row">
+          <div class="text-center">
+            <p>CopyRight Infratop.inc</p>
+          </div>
+        </div>
+      </div> 
     </footer>
   </body>
 </html>
