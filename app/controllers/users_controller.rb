@@ -6,9 +6,9 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.create_or_find_by(user_params)
-    if @user.persisted?
-      redirect_to new_session_path, notice: "ユーザー登録が完了しました！続けてログインしてください。"
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to users_path
     else
       render :new, status: :unprocessable_entity
     end

@@ -9,10 +9,11 @@ class SessionsController < ApplicationController
 
   def create
     if (user = User.find_by(name: params[:name]))&.authenticate(params[:password])
+      #session[:user_id] = user.id
+    #if  params[:remember_me] == "1"
+     #   cookies.permanent.encrypted[:user_id] = user.id
+    #end
       start_new_session_for user
-    if  params[:remember_me] == "1"
-        cookies.permanent.encrypted[:user_id] = user.id
-    end
       redirect_to books_path
     else
       redirect_to new_session_path, alert: "Try another email address or password."
