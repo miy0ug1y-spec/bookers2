@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
      #   cookies.permanent.encrypted[:user_id] = user.id
     #end
       start_new_session_for user
-      redirect_to books_path
+      redirect_to user_path(Current.user)
     else
       redirect_to new_session_path, alert: "Try another email address or password."
     end

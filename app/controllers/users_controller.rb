@@ -15,22 +15,35 @@ class UsersController < ApplicationController
   end
 
   def index
-    
+    @book= Book.new
+    @user= Current.user
+    @users=User.all
   end  
    
   def show
+    @book= Book.new
+    @user= Current.user
+    @books= Book.all
   end
 
   def edit
-    @user= User.new
+    @user= Current.user
   end
   
+  def update
+    @user = Current.user
+    if @user.update(user_params)
+      redirect_to user_path(@user)
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
 
 private
   
   def user_params
-    params.require(:user).permit(:name, :email_address, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :image, :introduction)
   end
 
 end
