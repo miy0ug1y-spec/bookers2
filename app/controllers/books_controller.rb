@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+ before_action :correct_book_user, only: [:edit, :update, :destroy]
+
 
   def index
     @book= Book.new
@@ -18,19 +20,30 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    @book.user_id = current_user.id
+    @book.user_id = Current.user.id
     if @book.save
+       flash[:notice] = "You have created book successfully."
        redirect_to book_path(@book)
     else
       @books = Book.all
-      @user = current_user
-      render :index
+      @user = Current.user
+      render "books/index", status: :unprocessable_entity
     end
   end
 
   def new
     @book = Book.new
     @user =User.new
+  end
+
+  def update
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      flash[:notice] = "You have updated book successfully."
+      redirect_to book_path(@book)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
 
@@ -45,4 +58,10 @@ private
   params.require(:book).permit(:title, :body)
  end
 
+ def correct_book_user
+  @book = Book.find(params[:id])
+  unless @book.user == Current.user
+    redirect_to books_path
+  end
+ end
 end

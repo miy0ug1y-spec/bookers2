@@ -1,9 +1,8 @@
 class SessionsController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create ]
+  allow_unauthenticated_access only: [ :new, :create ]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
-
   end
 
 
@@ -14,14 +13,16 @@ class SessionsController < ApplicationController
      #   cookies.permanent.encrypted[:user_id] = user.id
     #end
       start_new_session_for user
+      flash[:notice] = "Welcome! You have loged in successfully."
       redirect_to user_path(Current.user)
     else
-      redirect_to new_session_path, alert: "Try another email address or password."
+      redirect_to new_session_path
     end
   end
 
   def destroy
     terminate_session
+    flash[:notice] = "loged out successfully."
     redirect_to new_session_path
   end
 end
