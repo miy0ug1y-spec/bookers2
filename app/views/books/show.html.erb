@@ -8,7 +8,7 @@
                 <td>
                   <%= link_to user_path(@user) do %>
                     <% if @book.user.profile_image.attached? %>
-                      <%= image_tag book.user.profile_image, size: "100x100" %>
+                      <%= image_tag @book.user.profile_image, size: "100x100" %>
                     <% else %>
                       <%= image_tag "default-image.jpg", size: "100x100" %>
                     <% end %>
@@ -19,7 +19,7 @@
                 <td><%= @book.body %></td>
                 <td><% if @book.user==Current.user %>
                     <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %>
-                    <%= link_to 'destroy', book_path(@book), class: "btn btn-sm btn-danger", data: { turbo_method: :delete, turbo_confirm: "本当に消しますか？" } %> 
+                    <%= link_to 'Destroy', book_path(@book), class: "btn btn-sm btn-danger", data: { turbo_method: :delete, turbo_confirm: "本当に消しますか？" } %> 
                     <% end %>   
                 </td>
               </tr>

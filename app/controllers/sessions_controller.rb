@@ -12,14 +12,14 @@ class SessionsController < ApplicationController
       flash[:notice] = "Welcome! You have logged in successfully."
       redirect_to user_path(Current.user)
     else
-      render :new, status: :unauthorized
+      redirect_to new_session_path
     end
   end
 
   def destroy
     terminate_session
     flash[:notice] = "loged out successfully."
-    redirect_to new_session_path
+    redirect_to root_path
   end
 end
 
