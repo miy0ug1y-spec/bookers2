@@ -1,5 +1,3 @@
-
-<main>
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
@@ -9,11 +7,11 @@
           <%= form_with url: session_path do |form| %>
           <div class="field">
             <%= form.label :name, "Name" %><br>
-            <%= form.text_field :name, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your name", value: params[:name] %><br>
+            <%= form.text_field :name, class: "name" %><br>
           </div>
           <div class="field">
             <%= form.label :password, "Password" %><br>
-            <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 20 %><br>
+            <%= form.password_field :password, class: "password", autocomplete: "off", id: "user_password" %><br>
           </div>
           <div class="field">
             <%= form.check_box :remember_me %>
@@ -29,4 +27,3 @@
       </div>
     </div>
   </div>
-</main>

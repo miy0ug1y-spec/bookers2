@@ -53,7 +53,7 @@ private
 
   def correct_user
     @user = User.find_by(id: params[:id])
-    if @user.nil? || user != Current.user
+    if @user.nil? || @user != Current.user
       redirect_to user_path(Current.user)
     end
   end

@@ -8,3 +8,15 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+
+.name:focus, 
+.password:focus {
+  background-color: #e8f0fe !important;
+  outline: none;
+  border: 1px solid #2684ff;
+}
